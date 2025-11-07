@@ -1,0 +1,56 @@
+name: CI Pipeline - PokeAPI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️Checkout del código fuente
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️Configuración de Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3️Instalación de dependencias
+      - name: Install dependencies
+        run: npm install
+
+      # 4️Construcción del proyecto
+      - name: Build the project
+        run: npm run build
+
+      # 5️Ejecución de pruebas unitarias con Jest
+      - name: Run unit tests with Jest
+        run: npm test -- --coverage
+
+      # 6️Almacenamiento de reportes de cobertura (opcional)
+      - name: Upload test coverage report
+        if: success() || failure()  # se sube incluso si falla, para análisis
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-coverage-report
+          path: coverage/
+
+  # (Opcional) Job adicional para despliegue, se ejecutaría solo si todo pasa
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: success()
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Simulated Deployment
+        run: echo "Simulando despliegue de PokeAPI en entorno de producción..."
