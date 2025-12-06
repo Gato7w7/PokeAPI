@@ -1,0 +1,258 @@
+/* Contenedor principal de la barra de favoritos */
+.favorites-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 280px;
+  background: #1F2937;
+  border-right: 1px solid #374151;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+/* Header de favoritos */
+.favorites-header {
+  margin-bottom: 24px;
+}
+
+.favorites-title {
+  color: #F9FAFB;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.favorites-count {
+  color: #9CA3AF;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Estados de carga y vacío */
+.favorites-loading,
+.favorites-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6B7280;
+}
+
+.favorites-loading-icon,
+.favorites-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.favorites-loading-icon {
+  font-size: 32px;
+  opacity: 1;
+}
+
+.favorites-empty-icon {
+  opacity: 0.5;
+}
+
+.favorites-loading-text,
+.favorites-empty-text {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Lista de favoritos */
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Item individual de favorito */
+.favorite-item {
+  background: #111827;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #374151;
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.favorite-item:hover {
+  transform: translateX(4px);
+}
+
+.favorite-item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.favorite-sprite {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.favorite-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.favorite-name {
+  color: #F9FAFB;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: capitalize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.favorite-number {
+  font-size: 11px;
+  color: #9CA3AF;
+}
+
+.favorite-remove-btn {
+  background: rgba(239, 68, 68, 0.1);
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.favorite-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
+}
+
+.favorite-types {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.favorite-type-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Botón para abrir/cerrar en móvil */
+.favorites-toggle-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+  background: #EF4444;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.favorites-toggle-btn:hover {
+  transform: scale(1.05);
+}
+
+.favorites-toggle-count {
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Overlay para móvil */
+.favorites-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.favorites-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .favorites-sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .favorites-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .favorites-toggle-btn {
+    display: flex;
+  }
+  
+  .favorites-overlay {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorites-sidebar {
+    width: 260px;
+  }
+  
+  .favorites-toggle-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+    bottom: 16px;
+    right: 16px;
+  }
+  
+  .favorite-sprite {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .favorite-name {
+    font-size: 14px;
+  }
+  
+  .favorite-remove-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+}
